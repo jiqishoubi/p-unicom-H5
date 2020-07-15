@@ -1,0 +1,119 @@
+.flowHidden {
+	overflow: hidden;
+}
+.w100 {
+	width: 100%;
+}
+.h100 {
+	height: 100%;
+}
+.wh100 {
+	.w100;
+	.h100;
+}
+.flex {
+	display: flex;
+}
+.flexCenter {
+	.flex;
+	align-items: center;
+}
+.flexBetween {
+	.flex;
+	justify-content: space-between;
+}
+.flexJCenter {
+	.flex;
+	justify-content: center;
+}
+.flexAround {
+	.flex;
+	justify-content: space-around;
+}
+.flexEvenly {
+	.flex;
+	justify-content: space-evenly;
+}
+.flex1 {
+	flex: 1 0 0;
+}
+.flexColumn {
+	.flex;
+	.flexCenter;
+	flex-direction: column;
+}
+.positionCenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+/* 省略三个点 */
+.textOmit {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* 限制行数 number */
+.limitLine(@line) {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: @line;
+	overflow: hidden;
+	word-break: break-all;
+}
+// 1px边框
+.hairline(@dir: bottom, @color: #eee, @position:relative) {
+	position: @position;
+
+	&::after {
+		content: ' ';
+		position: absolute;
+		pointer-events: none;
+		box-sizing: border-box;
+		-webkit-transform-origin: center;
+		transform-origin: center;
+		top: -50%;
+		left: -50%;
+		right: -50%;
+		bottom: -50%;
+		-webkit-transform: scale(0.5);
+		transform: scale(0.5);
+		border: 0 solid @color;
+
+		border-@{dir}-width: 1px;
+	}
+}
+// 1px边框 end
+.colornone {
+	color: transparent;
+}
+.maskStyle {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 50;
+}
+.resetBtn {
+	border: none !important;
+	background: none !important;
+	&::after {
+		border: none !important;
+		background: none !important;
+	}
+}
+.transparent {
+	color: transparent !important;
+}
+
+// *********************自定义*********************
+@hoverWhite: #e5e5e5;
+
+@primaryColor: #E84E4E;
+@hoverColor: #d83838;
+
+@lightColor: #fff4b5;
+@darkColor: #c7a900;

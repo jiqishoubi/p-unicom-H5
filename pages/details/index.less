@@ -1,0 +1,62 @@
+@import '~utils/utils.less';
+
+.tips {
+	text-align: center;
+	line-height: 72rpx;
+	background-color: #ffefef;
+	color: #dc4f4e;
+}
+
+.form {
+	margin: 0 24rpx;
+	padding-top: 48rpx;
+	.item {
+		margin-bottom: 48rpx;
+		.label {
+			.flexCenter;
+			margin-bottom: 20rpx;
+			.label_text {
+				margin-left: 14rpx;
+			}
+		}
+		.input_wrap {
+			.flexCenter;
+			box-sizing: border-box;
+			min-height: 97rpx;
+			padding: 0 24rpx;
+			border: 1rpx solid #e1e1e1;
+			border-radius: 12rpx;
+			.input {
+				flex: 1 0 0;
+			}
+		}
+	}
+}
+
+.count {
+	margin: 0 24rpx;
+	text-align: right;
+}
+
+.desc {
+	margin: 28rpx 24rpx 85rpx;
+	font-size: 23rpx;
+	color: #595959;
+}
+
+.btn {
+	.flexCenter;
+	.flexJCenter;
+	height: 82rpx;
+	margin: 0 24rpx 80rpx;
+	border-radius: 41rpx;
+	color: #fff;
+	background-color: @primaryColor;
+	&.disable {
+		background-color: #d9d9d9;
+		pointer-events: none;
+	}
+}
+.btn_active {
+	background-color: @hoverColor;
+}

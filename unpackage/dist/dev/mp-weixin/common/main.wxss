@@ -1,0 +1,8 @@
+
+view,
+input,
+textarea,
+button {
+	font-size: 27rpx;
+}
+
