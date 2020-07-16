@@ -1,0 +1,43 @@
+@import '~utils/utils.less';
+
+.container {
+	.maskStyle;
+}
+
+.modal {
+	box-sizing: border-box;
+	height: 800rpx;
+	background-color: #fff;
+	border-top-left-radius: 24rpx;
+	border-top-right-radius: 24rpx;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding-left: 24rpx;
+	padding-right: 24rpx;
+}
+
+// 内容
+
+.title_wrap {
+	.flexCenter;
+	.flexBetween;
+	padding: 27rpx 0;
+}
+
+.tabs {
+	.flexCenter;
+	.tabs_item {
+		.flexCenter;
+		.flexJCenter;
+		padding: 0 35rpx;
+		&.active {
+			color: @primaryColor;
+			.tabs_item_text {
+				border-bottom: 5rpx solid @primaryColor;
+			}
+		}
+	}
+}

@@ -5,10 +5,6 @@ import {
 	globalHost
 } from '@/utils/utils.js'
 import {
-	host_lexin,
-	key_lexin_openid,
-	key_lexin_unionid,
-	key_card_userInfo,
 	key_card_myToken
 } from '@/utils/const.js'
 
@@ -22,28 +18,26 @@ const requestw = ({
 	return new Promise((resolve, reject) => {
 		//名片token
 		let myToken = uni.getStorageSync(key_card_myToken)
+
 		// url
 		let urlTemp = url.indexOf('http') > -1 ? url : (globalHost() + url)
+
 		// data / token
-		data = {
+		let dataTemp = {
+			token: myToken || null,
 			...data,
 		}
-		let dataTemp = {
-			token: myToken
-		}
-		for (let key in data) {
-			if (data[key] !== null && data[key] !== undefined) {
-				dataTemp[key] = data[key]
+		for (let key in dataTemp) {
+			if (dataTemp[key] == null || dataTemp[key] == undefined) {
+				delete dataTemp[key]
 			}
 		}
+
 		// headers
 		let headersTemp = {
 			'content-type': 'application/json', //默认
 			// 'content-type': 'application/x-www-form-urlencoded',
 			...headers,
-		}
-		if (myToken) {
-			headersTemp.token = myToken
 		}
 		// headers end
 
@@ -59,7 +53,7 @@ const requestw = ({
 				resolve(result)
 			},
 			fail: (err) => {
-				reject(err)
+				resolve(false)
 			}
 		})
 	})

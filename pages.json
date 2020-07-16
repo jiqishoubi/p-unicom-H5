@@ -9,12 +9,16 @@
 		"style": {
 			"navigationBarTitleText": "确认订单"
 		}
+	}, {
+		"path": "pages/order/order",
+		"style": {
+			"navigationBarTitleText": "我的订单"
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": " ",
-		"navigationBarBackgroundColor": "#fff",
-		"backgroundColor": "#FFFFFF"
+		"navigationBarBackgroundColor": "#fff"
 	},
 	//uview-ui ui框架
 	"easycom": {

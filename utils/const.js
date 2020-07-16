@@ -6,8 +6,9 @@ export const host_lexin = {
 }
 
 export const host = {
-	dev: 'https://greecardcrmt.bld365.com',
-	prod: 'https://greecardcrm.bld365.com',
+	dev: 'http://1.2.4.160:9229', //商
+	// dev: 'https://unioncardmallt.bld365.com',
+	prod: 'https://unioncardmallt.bld365.com',
 }
 
 export const staticHost = {
@@ -26,7 +27,8 @@ export const defaultTeamId = '2'
 export const key_card_wxUserInfo = 'key_card_wxUserInfo' //微信的userInfo
 export const key_card_userInfo = 'key_card_userInfo' //自己
 export const key_card_curCardInfo = 'key_card_curCardInfo' //当前/最后浏览的cardInfo
-export const key_card_myToken = 'key_card_myToken'
+
+export const key_card_myToken = 'key_card_myToken' //联通H5使用这个
 
 //名片小程序
 export const searchWrapHeight = 109

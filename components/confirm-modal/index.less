@@ -1,0 +1,57 @@
+@import '~utils/utils.less';
+
+.mask {
+	.maskStyle;
+	.modal {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fff;
+		border-radius: 18rpx;
+		overflow: hidden;
+	}
+}
+
+.modal {
+	.flexColumn;
+	.flexBetween;
+	width: 604rpx;
+	min-height: 299rpx;
+	.content {
+		width: 100%;
+		flex: 1 0 0;
+		.flexCenter;
+		.flexJCenter;
+		font-size: 33rpx;
+	}
+	.btn_wrap {
+		.flexCenter;
+		.flexBetween;
+		width: 100%;
+		padding: 34rpx 72rpx;
+		.btn {
+			.flexCenter;
+			.flexJCenter;
+			box-sizing: border-box;
+			width: 193rpx;
+			height: 80rpx;
+			border-radius: 40rpx;
+			font-size: 27rpx;
+		}
+		.btn1 {
+			color: @primaryColor;
+			border: 1rpx solid @primaryColor;
+		}
+		.btn2 {
+			color: #fff;
+			background-color: @primaryColor;
+		}
+		.btn1_active {
+			background-color: @hoverWhite;
+		}
+		.btn2_active {
+			background-color: @hoverColor;
+		}
+	}
+}

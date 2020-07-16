@@ -6,24 +6,26 @@
 </template>
 
 <script>
-import patternCreator from '@/utils/patternCreator.js'
-import requestw from '@/utils/requestw.js'
+import patternCreator from '@/utils/patternCreator.js';
+import requestw from '@/utils/requestw.js';
+import api_login from '@/services/allApiStr/login.js';
+import { key_card_myToken } from '@/utils/const.js';
 
 export default {
 	data() {
 		return {
 			second: 0,
 			timer: null
-		}
+		};
 	},
-	props: ['limitSecond', 'type', 'allUrl', 'phoneNumber', 'styleStr', 'validBeforeFlag'],
+	props: ['limitSecond', 'phoneNumber', 'styleStr'],
 	/**
 	 * 周期
 	 */
 	beforeCreate() {},
 	created() {},
 	beforeMount() {
-		this.second = this.limitSecond
+		this.second = this.limitSecond;
 	},
 	mounted() {},
 	beforeUpdate() {},
@@ -36,60 +38,79 @@ export default {
 	 */
 	methods: {
 		async getSms() {
-			//再之前的验证
-			if (this.validBeforeFlag == false) {
-				uni.showToast({ title: '图片和信息请上传/填写完整', icon: 'none', mask: true })
-				return
-			}
-			//再之前的验证 end
-
 			//验证
 			if (this.phoneNumber == '' || !patternCreator.mobilePhone.pattern.test(this.phoneNumber)) {
-				uni.showToast({ title: '请输入正确格式的手机号', icon: 'none', mask: true })
-				return
+				uni.showToast({ title: '请输入正确格式的手机号', icon: 'none', mask: true });
+				return;
 			}
 			//验证 end
 
-			uni.showLoading({ title: '请稍候...', mask: true })
+			uni.showLoading({ title: '请稍候...', mask: true });
+
+			//一、doLogin
 			let postData = {
-				phoneNumber: this.phoneNumber
-			}
+				phone_number: this.phoneNumber
+			};
 			let res = await requestw({
-				type: this.type ? this.type : 'post',
-				url: this.allUrl,
+				url: api_login.loginApi,
 				data: postData
-			})
-			// if (res.code !== 200) {
-			// 	uni.showToast({ title: res.message ? res.message : '操作失败', icon: 'none', mask: true })
-			// 	return
-			// }
-			if(res.resultCode!=='200'){
-				uni.showToast({ title: res.systemMessage ? res.systemMessage : '操作失败', icon: 'none', mask: true })
-				return
+			});
+			let token = '';
+			if (res && res.resultCode == '200' && res.value && res.value.token) {
+				token = res.value.token;
+			}
+			if (!token) {
+				uni.hideLoading();
+				uni.showModal({
+					title: '提示',
+					content: res.systemMessage || '登录失败',
+					showCancel: false
+				});
+				return;
 			}
 
-			uni.showToast({ title: res.systemMessage, icon: 'none' })
+			//二、获取验证码
+			let postData2 = {
+				token
+			};
+			let res2 = await requestw({
+				url: api_login.getSMSApi,
+				data: postData2
+			});
+			if (!res2 || res2.resultCode !== '200') {
+				console.log(res2);
+				uni.hideLoading();
+				uni.showModal({
+					title: '提示',
+					content: res2.systemMessage || '操作失败',
+					showCancel: false
+				});
+				return;
+			}
 
-			this.bgTimer()
+			uni.showToast({ title: res2.systemMessage || '验证码发送成功', icon: 'none' });
+			uni.setStorageSync(key_card_myToken, token);
+
+			this.bgTimer();
 		},
 		bgTimer() {
 			let timer = setInterval(() => {
-				let nextSecond = this.second - 1
+				let nextSecond = this.second - 1;
 				if (nextSecond < 0) {
-					this.endTimer()
-					return
+					this.endTimer();
+					return;
 				}
-				this.second = nextSecond
-			}, 1000)
-			this.timer = timer
+				this.second = nextSecond;
+			}, 1000);
+			this.timer = timer;
 		},
 		endTimer() {
-			clearInterval(this.timer)
-			this.timer = null
-			this.second = this.limitSecond
+			clearInterval(this.timer);
+			this.timer = null;
+			this.second = this.limitSecond;
 		}
 	}
-}
+};
 </script>
 
 <style lang="less">
