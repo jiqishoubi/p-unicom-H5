@@ -70,7 +70,9 @@ export default {
 			}
 		},
 		//操作
-		zhifuOrder() {},
+		zhifuOrder(item) {
+			
+		},
 		cancelOrder(item) {
 			console.log(item);
 			this.$refs.confirmModal.open({
@@ -83,7 +85,6 @@ export default {
 						url: api_order.cancelApi,
 						data: postData
 					});
-					console.log(res);
 					if (res && res.resultCode == '200') {
 						uni.showToast({
 							title: '操作成功',
