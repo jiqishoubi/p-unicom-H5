@@ -70,7 +70,20 @@ export default {
 			}
 		},
 		//操作
-		zhifuOrder(item) {
+		async zhifuOrder(item) {
+			let postData = {
+				
+			};
+			uni.showLoading({
+				title: '请稍候...',
+				mask: true
+			});
+			let res = await requestw({
+				url: api_order.payConfigApi,
+				data: postData
+			});
+			uni.hideLoading();
+			console.log(res);
 			
 		},
 		cancelOrder(item) {

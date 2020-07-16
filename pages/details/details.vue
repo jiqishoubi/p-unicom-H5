@@ -136,6 +136,7 @@ export default {
 	onLoad(options) {
 		if (options.phone) {
 			this.phone = options.phone;
+			this.productId=options.productId
 		}
 		this.getProductInfo();
 	},
@@ -158,7 +159,7 @@ export default {
 		async getProductInfo() {
 			let res = await requestw({
 				url: api_order.getProductInfoApi,
-				data: { productId: '1' }
+				data: { productId: this.productId }
 			});
 			if (res && res.resultCode == '200' && res.value) {
 				this.productInfo = res.value;
