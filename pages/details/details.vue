@@ -15,7 +15,8 @@
 						label-width="0"
 						clearable
 						:field-style="{ fontSize: '27rpx' }"
-						style="padding-left: 24rpx; padding-right: 24rpx;"
+						style="padding-left: 15rpx; padding-right: 24rpx;"
+						placeholder-style="color:#D9D9D9;"
 						v-model="userName"
 						placeholder="请输入姓名"
 					/>
@@ -28,7 +29,8 @@
 						label-width="0"
 						clearable
 						:field-style="{ fontSize: '27rpx' }"
-						style="padding-left: 24rpx; padding-right: 24rpx;"
+						style="padding-left: 15rpx; padding-right: 24rpx;"
+						placeholder-style="color:#D9D9D9;"
 						v-model="phone"
 						placeholder="请输入手机号"
 					/>
@@ -47,7 +49,8 @@
 						@change="pickerConfirm"
 						@cancel="pickerCancel"
 					>
-						{{ showPickerStr }}
+						<text v-if="showPickerStr">{{ showPickerStr }}</text>
+						<text style="color: #D9D9D9;">请选择市区</text>
 					</picker>
 				</view>
 			</view>
@@ -58,7 +61,8 @@
 						label-width="0"
 						clearable
 						:field-style="{ fontSize: '27rpx' }"
-						style="padding-left: 24rpx; padding-right: 24rpx;"
+						style="padding-left: 15rpx; padding-right: 24rpx;"
+						placeholder-style="color:#D9D9D9;"
 						v-model="address"
 						placeholder="请输入详细地址"
 					/>
@@ -132,7 +136,7 @@ export default {
 			return [rangeShiqu, childArr];
 		},
 		showPickerStr() {
-			let str = '请选择市区';
+			let str = '';
 			if (this.pickerValue[0] !== null && this.pickerValue[1] !== null) {
 				let shi = this.showPickerArr[0][this.pickerValue[0]].name;
 				let qu = this.showPickerArr[1][this.pickerValue[1]].name;
@@ -199,7 +203,7 @@ export default {
 		//提交
 		async submit() {
 			//验证
-			if (this.userName.trim() == '' || this.phone.trim() == '' || this.showPickerStr == '请选择市区' || this.address.trim() == '') {
+			if (this.userName.trim() == '' || this.phone.trim() == '' || this.showPickerStr == '' || this.address.trim() == '') {
 				uni.showToast({
 					title: '信息请填写完整',
 					icon: 'none'
