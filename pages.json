@@ -1,5 +1,10 @@
 {
 	"pages": [{
+		"path": "pages/indexH5/indexH5",
+		"style": {
+			"navigationBarTitleText": "联通"
+		}
+	}, {
 		"path": "pages/login/login",
 		"style": {
 			"navigationBarTitleText": "登录"
@@ -13,6 +18,11 @@
 		"path": "pages/order/order",
 		"style": {
 			"navigationBarTitleText": "我的订单"
+		}
+	}, {
+		"path": "pages/result/result",
+		"style": {
+			"navigationBarTitleText": "支付"
 		}
 	}],
 	"globalStyle": {

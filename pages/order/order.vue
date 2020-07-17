@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<view v-if="list && list.length > 0">
-			<view v-for="(item, index) in list" :key="index" class="order_box"><order-item :item="item" @onZhifu="zhifuOrder" @onCancel="cancelOrder"></order-item></view>
+			<view v-for="(item, index) in list" :key="index" class="order_box">
+				<order-item :item="item" @onZhifu="zhifuOrder" @onCancel="cancelOrder" @onRefund="refundOrder"></order-item>
+			</view>
 		</view>
 		<no-result v-else></no-result>
 
@@ -15,6 +17,8 @@ import confirmModal from '@/components/confirm-modal/confirm-modal.vue';
 import noResult from '@/components/noResult.vue';
 import requestw from '@/utils/requestw.js';
 import api_order from '@/services/allApiStr/order.js';
+import { goPayAjax } from '@/services/order.js';
+import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
 export default {
 	components: {
 		orderItem,
@@ -71,33 +75,72 @@ export default {
 		},
 		//操作
 		async zhifuOrder(item) {
-			let postData = {
-				
-			};
 			uni.showLoading({
 				title: '请稍候...',
 				mask: true
 			});
-			let res = await requestw({
-				url: api_order.payConfigApi,
-				data: postData
-			});
+			let res = await goPayAjax(item.tradeNo);
 			uni.hideLoading();
-			console.log(res);
-			
+			if (!res) {
+				uni.showToast({
+					title: '唤起支付失败',
+					icon: 'none',
+					mask: true
+				});
+				return;
+			}
+
+			uni.setStorageSync(key_card_unicom_lookingTradeNo, item.tradeNo);
+			window.location.href = res;
 		},
 		cancelOrder(item) {
-			console.log(item);
 			this.$refs.confirmModal.open({
 				str: '确认取消订单？',
 				success: async () => {
 					let postData = {
 						tradeNo: item.tradeNo
 					};
+					uni.showLoading({
+						title: '请稍候...'
+					});
 					let res = await requestw({
 						url: api_order.cancelApi,
 						data: postData
 					});
+					uni.hideLoading();
+					if (res && res.resultCode == '200') {
+						uni.showToast({
+							title: '操作成功',
+							mask: true
+						});
+						setTimeout(() => {
+							this.getList();
+						}, 1200);
+					} else {
+						uni.showToast({
+							title: res.systemMessage || '网络异常',
+							icon: 'none'
+						});
+					}
+				}
+			});
+		},
+		refundOrder(item) {
+			this.$refs.confirmModal.open({
+				str: '确认申请退款？',
+				success: async () => {
+					let postData = {
+						tradeNo: item.tradeNo
+					};
+					uni.showLoading({
+						title: '请稍候...'
+					});
+					let res = await requestw({
+						url: api_order.refundApi,
+						data: postData
+					});
+					uni.hideLoading();
+					console.log(res);
 					if (res && res.resultCode == '200') {
 						uni.showToast({
 							title: '操作成功',

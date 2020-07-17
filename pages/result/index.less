@@ -1,0 +1,33 @@
+@import '~utils/utils.less';
+
+.container {
+	.flexColumn;
+	overflow: hidden;
+}
+
+.icon {
+	margin-top: 120rpx;
+}
+
+.title {
+	font-size: 35rpx;
+	margin: 40rpx 0 120rpx;
+}
+
+.btn {
+	.flexCenter;
+	.flexJCenter;
+	padding: 25rpx 38rpx;
+	margin-bottom: 24rpx;
+	&::after {
+		border-radius: 18rpx;
+	}
+}
+
+.btn1 {
+	color: @primaryColor;
+}
+
+.btn_active{
+	background-color: @hoverWhite;
+}

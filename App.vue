@@ -22,5 +22,6 @@ input,
 textarea,
 button {
 	font-size: 27rpx;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif !important;
 }
 </style>

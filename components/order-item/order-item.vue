@@ -15,6 +15,7 @@
 			<view class="btn_wrap">
 				<view v-if="item.tradeState == '0'" class="u-border btn btn_zhifu" hover-class="btn_active" hover-stay-time="110" @tap.stop="clickBtn('onZhifu')">去支付</view>
 				<view v-if="item.tradeState == '0'" class="u-border btn btn_cancel" hover-class="btn_active" hover-stay-time="110" @tap.stop="clickBtn('onCancel')">取消订单</view>
+				<view v-if="item.tradeState == '20'" class="u-border btn btn_cancel" hover-class="btn_active" hover-stay-time="110" @tap.stop="clickBtn('onRefund')">申请退款</view>
 			</view>
 		</view>
 	</view>

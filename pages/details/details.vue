@@ -67,7 +67,7 @@
 
 		<view class="desc">
 			<view style="margin-bottom: 5rpx;">温馨提示：</view>
-			此商品享受联通直降补贴600元，联通需冻结您的花呗额度687元（包含手续费87元），请确保您已开通花呗，额度充足，以便联通官方人员上门为您办理，办理成功后无需您还款，联通每月按期为您还款，直至分期结束。
+			此商品享受联通直降600元的补贴优惠，下单后需办理联通99元的5G套餐合约，办理中需冻结您的花呗额度687元，请确保您已开通花呗，额度充足，以便联通官方人员上门为您办理，办理成功后无需您还款，联通每月按期为您还款，直至分期结束。
 		</view>
 
 		<view style="height: 90rpx;"></view>
@@ -85,6 +85,8 @@ import requestw from '@/utils/requestw.js';
 import api_order from '@/services/allApiStr/order.js';
 import { toMoney } from '@/utils/utils.js';
 import patternCreator from '@/utils/patternCreator.js';
+import { goPayAjax } from '@/services/order.js';
+import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
 export default {
 	components: {
 		uniIcons
@@ -136,7 +138,7 @@ export default {
 	onLoad(options) {
 		if (options.phone) {
 			this.phone = options.phone;
-			this.productId=options.productId
+			this.productId = options.productId;
 		}
 		this.getProductInfo();
 	},
@@ -184,6 +186,12 @@ export default {
 			}
 			//验证 end
 
+			uni.showLoading({
+				title: '请稍候...',
+				mask: true
+			});
+
+			//一、下订单
 			let address = this.showPickerStr + this.address;
 			let postData = {
 				custName: this.userName,
@@ -191,32 +199,49 @@ export default {
 				phoneNumber: this.phone,
 				address
 			};
-			uni.showLoading({
-				title: '请稍候...',
-				mask: true
-			});
 			let res = await requestw({
 				url: api_order.submitOrderApi,
 				data: postData
 			});
-			uni.hideLoading();
-			console.log(res);
-			if (res && res.resultCode == '200') {
-				uni.showModal({
-					title: '提示',
-					content: res.systemMessage || '操作成功',
-					showCancel: false,
-					success: () => {
-						uni.redirectTo({
-							url: '/pages/order/order?phone=' + this.phone
-						});
-					}
-				});
-			} else {
+			if (!res || res.resultCode !== '200') {
 				uni.showToast({
 					title: res.systemMessage || '网络异常'
 				});
+				return;
 			}
+
+			//二、支付
+			let tradeNo = res.value.tradeNo;
+			let res2 = await goPayAjax(tradeNo);
+			if (!res2) {
+				uni.showToast({
+					title: '唤起支付失败',
+					icon: 'none',
+					mask: true
+				});
+				setTimeout(() => {
+					uni.redirectTo({
+						url: '/pages/order/order?phone=' + this.phone
+					});
+				}, 1300);
+				return;
+			}
+
+			uni.setStorageSync(key_card_unicom_lookingTradeNo, tradeNo);
+			window.location.href = res2;
+
+			uni.hideLoading();
+
+			// uni.showModal({
+			// 	title: '提示',
+			// 	content: res.systemMessage || '操作成功',
+			// 	showCancel: false,
+			// 	success: () => {
+			// 		uni.redirectTo({
+			// 			url: '/pages/order/order?phone=' + this.phone
+			// 		});
+			// 	}
+			// });
 		}
 	} //methods
 };

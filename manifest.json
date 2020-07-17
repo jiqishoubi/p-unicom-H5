@@ -50,7 +50,7 @@
 	"h5": {
 		"router": {},
 		"devServer": {},
-		"publicPath": "./",
+		"publicPath": "https://unigree.bld365.com/",
 		"optimization": {
 			"treeShaking": {
 				"enable": true
