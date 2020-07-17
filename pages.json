@@ -2,7 +2,8 @@
 	"pages": [{
 		"path": "pages/indexH5/indexH5",
 		"style": {
-			"navigationBarTitleText": "联通"
+			"navigationBarTitleText": "联通",
+			"navigationStyle": "custom"
 		}
 	}, {
 		"path": "pages/login/login",

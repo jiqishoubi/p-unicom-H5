@@ -1,5 +1,5 @@
 <template>
-	<view class="mask" :style="'display:' + (visible ? 'block' : 'none') + ';'">
+	<view class="mask" :style="'display:' + (visible ? 'block' : 'none') + ';'" @tap="closeMask">
 		<view class="img_box"><image class="img" :src="img" mode="widthFix"></image></view>
 	</view>
 </template>
@@ -15,6 +15,9 @@ export default {
 		};
 	},
 	methods: {
+		closeMask() {
+			this.visible = false;
+		},
 		//返回true可以继续往下走
 		checkOpen() {
 			if (isWeixin()) {

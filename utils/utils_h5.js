@@ -7,17 +7,21 @@ function isIOS() {
 
 //打开新页面
 export const openUrl = (url) => {
-	let body = document.body || document.getElementsByTagName("body")[0];
-	let a = document.createElement("a");
-	a.setAttribute("href", url);
-	a.setAttribute("target", '_blank');
-	body.appendChild(a);
+	// let body = document.body || document.getElementsByTagName("body")[0];
+	// let a = document.createElement("a");
+	// a.setAttribute("href", url);
+	// a.setAttribute("target", '_blank');
+	// body.appendChild(a);
+	// setTimeout(() => {
+	// 	a.click()
+	// }, 10)
+	// setTimeout(() => {
+	// 	body.removeChild(a)
+	// }, 50)
+	
 	setTimeout(() => {
-		a.click()
+		window.location.href = url;
 	}, 10)
-	setTimeout(() => {
-		body.removeChild(a)
-	}, 50)
 }
 
 //是否是微信
