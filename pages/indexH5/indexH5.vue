@@ -3,18 +3,18 @@
 		<view class="goBtn" @tap.stop="goContent">我的订单</view>
 
 		<view class="img_wrap"><image v-for="(item, index) in imgList" :key="index" :src="item.img" mode="widthFix" @tap.stop="clickItem(item)"></image></view>
+
+		<wexin-tips ref="wexinTips"></wexin-tips>
 	</view>
 </template>
 
 <script>
-const imgList = [
-	{ id: '1', img: require('../../assets/img1.png') },
-	{ id: '1', img: require('../../assets/img2.png') },
-	{ id: '1', img: require('../../assets/img3.png') },
-	{ id: '1', img: require('../../assets/img4.png') },
-	{ id: '1', img: require('../../assets/img5.png') }
-];
+import wexinTips from '@/components/weixinTips/weixinTips.vue';
+import imgList from './imgList.js';
 export default {
+	components: {
+		wexinTips
+	},
 	data() {
 		return {
 			imgList
@@ -22,12 +22,20 @@ export default {
 	},
 	methods: {
 		goContent() {
+			if (!this.$refs.wexinTips.checkOpen()) {
+				return;
+			}
+
 			uni.navigateTo({
 				url: '/pages/login/login'
 			});
 		},
 		clickItem(item) {
 			if (item.id) {
+				if (!this.$refs.wexinTips.checkOpen()) {
+					return;
+				}
+
 				uni.navigateTo({
 					url: '/pages/login/login?productId=' + item.id
 				});

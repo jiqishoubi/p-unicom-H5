@@ -19,6 +19,7 @@ import requestw from '@/utils/requestw.js';
 import api_order from '@/services/allApiStr/order.js';
 import { goPayAjax } from '@/services/order.js';
 import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
+import { openUrl } from '@/utils/utils_h5.js';
 export default {
 	components: {
 		orderItem,
@@ -91,7 +92,10 @@ export default {
 			}
 
 			uni.setStorageSync(key_card_unicom_lookingTradeNo, item.tradeNo);
-			window.location.href = res;
+			openUrl(res);
+			uni.redirectTo({
+				url: '/pages/result/result'
+			});
 		},
 		cancelOrder(item) {
 			this.$refs.confirmModal.open({
@@ -140,8 +144,7 @@ export default {
 						data: postData
 					});
 					uni.hideLoading();
-					console.log(res);
-					if (res && res.resultCode == '200') {
+					if (res == 'success') {
 						uni.showToast({
 							title: '操作成功',
 							mask: true
@@ -151,7 +154,7 @@ export default {
 						}, 1200);
 					} else {
 						uni.showToast({
-							title: res.systemMessage || '网络异常',
+							title: '网络异常',
 							icon: 'none'
 						});
 					}

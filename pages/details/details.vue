@@ -10,12 +10,28 @@
 
 			<view class="item">
 				<view class="input_box">
-					<u-field label-width="0" clearable :field-style="{ fontSize: '27rpx' }" style="padding-left: 24rpx; padding-right: 24rpx;" v-model="userName" placeholder="请输入姓名" />
+					<u-field
+						class="input_filed"
+						label-width="0"
+						clearable
+						:field-style="{ fontSize: '27rpx' }"
+						style="padding-left: 24rpx; padding-right: 24rpx;"
+						v-model="userName"
+						placeholder="请输入姓名"
+					/>
 				</view>
 			</view>
 			<view class="item">
 				<view class="input_box">
-					<u-field label-width="0" clearable :field-style="{ fontSize: '27rpx' }" style="padding-left: 24rpx; padding-right: 24rpx;" v-model="phone" placeholder="请输入手机号" />
+					<u-field
+						class="input_filed"
+						label-width="0"
+						clearable
+						:field-style="{ fontSize: '27rpx' }"
+						style="padding-left: 24rpx; padding-right: 24rpx;"
+						v-model="phone"
+						placeholder="请输入手机号"
+					/>
 				</view>
 			</view>
 			<view class="item">
@@ -38,6 +54,7 @@
 			<view class="item">
 				<view class="input_box">
 					<u-field
+						class="input_filed"
 						label-width="0"
 						clearable
 						:field-style="{ fontSize: '27rpx' }"
@@ -87,6 +104,7 @@ import { toMoney } from '@/utils/utils.js';
 import patternCreator from '@/utils/patternCreator.js';
 import { goPayAjax } from '@/services/order.js';
 import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
+import { openUrl } from '@/utils/utils_h5.js';
 export default {
 	components: {
 		uniIcons
@@ -155,7 +173,9 @@ export default {
 			this.pickerValue = JSON.parse(JSON.stringify(e.detail.value));
 		},
 		pickerCancel() {
-			this.pickerBindValue = JSON.parse(JSON.stringify(this.pickerValue));
+			if (this.pickerValue[0] !== null && this.pickerValue[1] !== null) {
+				this.pickerBindValue = JSON.parse(JSON.stringify(this.pickerValue));
+			}
 		},
 		//获取商品详情
 		async getProductInfo() {
@@ -165,6 +185,15 @@ export default {
 			});
 			if (res && res.resultCode == '200' && res.value) {
 				this.productInfo = res.value;
+			} else {
+				uni.showModal({
+					title: '提示',
+					content: res.systemMessage || '未查到商品信息',
+					showCancel: false,
+					success: () => {
+						uni.navigateBack();
+					}
+				});
 			}
 		},
 		//提交
@@ -227,21 +256,13 @@ export default {
 				return;
 			}
 
-			uni.setStorageSync(key_card_unicom_lookingTradeNo, tradeNo);
-			window.location.href = res2;
-
 			uni.hideLoading();
 
-			// uni.showModal({
-			// 	title: '提示',
-			// 	content: res.systemMessage || '操作成功',
-			// 	showCancel: false,
-			// 	success: () => {
-			// 		uni.redirectTo({
-			// 			url: '/pages/order/order?phone=' + this.phone
-			// 		});
-			// 	}
-			// });
+			uni.setStorageSync(key_card_unicom_lookingTradeNo, tradeNo);
+			openUrl(res2);
+			uni.redirectTo({
+				url: '/pages/result/result'
+			});
 		}
 	} //methods
 };
