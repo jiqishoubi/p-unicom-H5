@@ -165,6 +165,9 @@ export default {
 			return flag;
 		}
 	},
+	/**
+	 * 周期
+	 */
 	onLoad(options) {
 		if (options.phone) {
 			this.phone = options.phone;
