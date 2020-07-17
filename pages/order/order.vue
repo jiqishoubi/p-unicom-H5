@@ -52,6 +52,7 @@ export default {
 		setTimeout(() => {
 			uni.stopPullDownRefresh();
 		}, 400);
+		this.getList();
 	},
 	onReachBottom() {},
 	onPageScroll() {},

@@ -50,7 +50,7 @@
 						@cancel="pickerCancel"
 					>
 						<text v-if="showPickerStr">{{ showPickerStr }}</text>
-						<text style="color: #D9D9D9;">请选择市区</text>
+						<text v-else style="color: #D9D9D9;">请选择市区</text>
 					</picker>
 				</view>
 			</view>
