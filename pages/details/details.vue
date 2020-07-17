@@ -94,7 +94,7 @@
 		<view style="height: 90rpx;"></view>
 		<view class="btn_wrap">
 			<view class="endCount">&yen;{{ totalMoney }}</view>
-			<view class="btn" hover-class="btn_active" hover-stay-time="110" @tap="submit">支付</view>
+			<view class="btn" hover-class="btn_active" hover-stay-time="110" :class="{ disable: !btnCanClick }" @tap="submit">支付</view>
 		</view>
 	</view>
 </template>
@@ -155,6 +155,14 @@ export default {
 				}
 			}
 			return str;
+		},
+		//按钮能否点击
+		btnCanClick() {
+			let flag = false;
+			if (this.userName.trim() !== '' && this.phone.trim() !== '' && this.showPickerStr !== '' && this.address.trim() !== '') {
+				flag = true;
+			}
+			return flag;
 		}
 	},
 	onLoad(options) {
