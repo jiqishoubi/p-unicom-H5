@@ -8,6 +8,9 @@ const api = {
 	goPayApi: '/api/wx/pay/mweb',
 	getPayStatusApi: '/api/wx/pay/query',
 	refundApi: '/api/wx/pay/refund', //申请退款
+
+	//微信内 H5 jssdk支付
+	wxH5JSSdkPayApi: '/api/wx/pay/jsapi',
 }
 
 export default api

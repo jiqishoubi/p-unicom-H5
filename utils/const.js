@@ -29,10 +29,13 @@ export const key_card_userInfo = 'key_card_userInfo' //自己
 export const key_card_curCardInfo = 'key_card_curCardInfo' //当前/最后浏览的cardInfo
 
 export const key_card_myToken = 'key_card_myToken' //联通H5使用这个
-export const key_card_unicom_phone = 'key_card_unicom_phone' 
-export const key_card_unicom_lookingTradeNo = 'key_card_unicom_lookingTradeNo' 
+export const key_card_unicom_phone = 'key_card_unicom_phone'
+export const key_card_unicom_lookingTradeNo = 'key_card_unicom_lookingTradeNo'
 
 //名片小程序
 export const searchWrapHeight = 109
 export const tabbarHeight = 113
 export const isXBottom = 38 //iphonex安全距离
+
+export const appid_bld = 'wx6e34871a94507a96'
+export const appSecret_bld = '57a471343e78aebc1e14367300c64cdc'

@@ -5,7 +5,9 @@ import {
 	globalHost
 } from '@/utils/utils.js'
 import {
-	key_card_myToken
+	key_card_myToken,
+	key_card_unicom_phone,
+	key_card_unicom_lookingTradeNo
 } from '@/utils/const.js'
 
 const requestw = ({
@@ -50,6 +52,17 @@ const requestw = ({
 			// responseType	String	否	text	设置响应的数据类型。合法值：text、arraybuffer	5+App和支付宝小程序不支持
 			success: (res) => {
 				let result = res.data
+
+				if (result.systemMessage && result.systemMessage.indexOf('无效') > -1) {
+					uni.removeStorageSync(key_card_myToken)
+					uni.removeStorageSync(key_card_unicom_phone)
+					uni.removeStorageSync(key_card_unicom_lookingTradeNo)
+					uni.reLaunch({
+						url: '/pages/indexH5/indexH5.vue'
+					})
+					resolve()
+				}
+
 				resolve(result)
 			},
 			fail: (err) => {

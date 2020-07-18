@@ -17,7 +17,7 @@ import confirmModal from '@/components/confirm-modal/confirm-modal.vue';
 import noResult from '@/components/noResult.vue';
 import requestw from '@/utils/requestw.js';
 import api_order from '@/services/allApiStr/order.js';
-import { goPayAjax } from '@/services/order.js';
+import { goPayAjax, goPayWrap } from '@/services/order.js';
 import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
 import { openUrl } from '@/utils/utils_h5.js';
 export default {
@@ -81,22 +81,8 @@ export default {
 				title: '请稍候...',
 				mask: true
 			});
-			let res = await goPayAjax(item.tradeNo);
-			uni.hideLoading();
-			if (!res) {
-				uni.showToast({
-					title: '唤起支付失败',
-					icon: 'none',
-					mask: true
-				});
-				return;
-			}
-
-			uni.setStorageSync(key_card_unicom_lookingTradeNo, item.tradeNo);
-			openUrl(res);
-			uni.redirectTo({
-				url: '/pages/result/result'
-			});
+			//二、支付
+			goPayWrap(item.tradeNo);
 		},
 		cancelOrder(item) {
 			this.$refs.confirmModal.open({

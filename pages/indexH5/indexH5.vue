@@ -22,9 +22,9 @@ export default {
 	},
 	methods: {
 		goContent() {
-			if (!this.$refs.wexinTips.checkOpen()) {
-				return;
-			}
+			// if (!this.$refs.wexinTips.checkOpen()) {
+			// 	return;
+			// }
 
 			uni.navigateTo({
 				url: '/pages/login/login'
@@ -32,9 +32,9 @@ export default {
 		},
 		clickItem(item) {
 			if (item.id) {
-				if (!this.$refs.wexinTips.checkOpen()) {
-					return;
-				}
+				// if (!this.$refs.wexinTips.checkOpen()) {
+				// 	return;
+				// }
 
 				uni.navigateTo({
 					url: '/pages/login/login?productId=' + item.id

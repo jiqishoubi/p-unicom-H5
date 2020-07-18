@@ -16,6 +16,7 @@ import getsmsbtn from '@/components/getsmsbtn.vue';
 import requestw from '@/utils/requestw.js';
 import api_login from '@/services/allApiStr/login.js';
 import { key_card_myToken, key_card_unicom_phone } from '@/utils/const.js';
+import { redirectUrl } from '@/services/login.js';
 
 export default {
 	components: {
@@ -29,7 +30,9 @@ export default {
 			sms: ''
 		};
 	},
-	onLoad(options) {
+	async onLoad(options) {
+		// let res = await redirectUrl();
+
 		if (options.productId) {
 			this.productId = options.productId;
 		}

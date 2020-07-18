@@ -1,32 +1,40 @@
 {
 	"pages": [{
-		"path": "pages/indexH5/indexH5",
-		"style": {
-			"navigationBarTitleText": "联通",
-			"navigationStyle": "custom"
+			"path": "pages/indexH5/indexH5",
+			"style": {
+				"navigationBarTitleText": "联通",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/details/details",
+			"style": {
+				"navigationBarTitleText": "确认订单"
+			}
+		}, {
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/result/result",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		},
+		//微信内H5支付页面
+		{
+			"path": "pages/payPage/payPage",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		}
-	}, {
-		"path": "pages/login/login",
-		"style": {
-			"navigationBarTitleText": "登录"
-		}
-	}, {
-		"path": "pages/details/details",
-		"style": {
-			"navigationBarTitleText": "确认订单"
-		}
-	}, {
-		"path": "pages/order/order",
-		"style": {
-			"navigationBarTitleText": "我的订单",
-			"enablePullDownRefresh": true
-		}
-	}, {
-		"path": "pages/result/result",
-		"style": {
-			"navigationBarTitleText": "支付"
-		}
-	}],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": " ",

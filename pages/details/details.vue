@@ -106,9 +106,9 @@ import requestw from '@/utils/requestw.js';
 import api_order from '@/services/allApiStr/order.js';
 import { toMoney } from '@/utils/utils.js';
 import patternCreator from '@/utils/patternCreator.js';
-import { goPayAjax } from '@/services/order.js';
+import { goPayAjax, goPayWrap } from '@/services/order.js';
 import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
-import { openUrl } from '@/utils/utils_h5.js';
+import { openUrl, isWeixin } from '@/utils/utils_h5.js';
 export default {
 	components: {
 		uniIcons
@@ -194,10 +194,14 @@ export default {
 		},
 		//获取商品详情
 		async getProductInfo() {
+			uni.showLoading({
+				title: '请稍候...'
+			});
 			let res = await requestw({
 				url: api_order.getProductInfoApi,
 				data: { productId: this.productId }
 			});
+			uni.hideLoading();
 			if (res && res.resultCode == '200' && res.value) {
 				this.productInfo = res.value;
 			} else {
@@ -255,29 +259,7 @@ export default {
 			}
 
 			//二、支付
-			let tradeNo = res.value.tradeNo;
-			let res2 = await goPayAjax(tradeNo);
-			if (!res2) {
-				uni.showToast({
-					title: '唤起支付失败',
-					icon: 'none',
-					mask: true
-				});
-				setTimeout(() => {
-					uni.redirectTo({
-						url: '/pages/order/order?phone=' + this.phone
-					});
-				}, 1300);
-				return;
-			}
-
-			uni.hideLoading();
-
-			uni.setStorageSync(key_card_unicom_lookingTradeNo, tradeNo);
-			openUrl(res2);
-			uni.redirectTo({
-				url: '/pages/result/result'
-			});
+			goPayWrap(res.value.tradeNo);
 		}
 	} //methods
 };
