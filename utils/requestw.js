@@ -52,15 +52,18 @@ const requestw = ({
 			// responseType	String	否	text	设置响应的数据类型。合法值：text、arraybuffer	5+App和支付宝小程序不支持
 			success: (res) => {
 				let result = res.data
-
+				console.log(result)
 				if (result.systemMessage && result.systemMessage.indexOf('无效') > -1) {
 					uni.removeStorageSync(key_card_myToken)
 					uni.removeStorageSync(key_card_unicom_phone)
 					uni.removeStorageSync(key_card_unicom_lookingTradeNo)
-					uni.reLaunch({
-						url: '/pages/indexH5/indexH5.vue'
-					})
+
+					// uni.reLaunch({
+					// 	url: '/pages/indexH5/indexH5.vue'
+					// })
+					window.location.href = 'https://unigree.bld365.com/#/pages/indexH5/indexH5'
 					resolve()
+					return
 				}
 
 				resolve(result)
