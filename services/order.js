@@ -51,9 +51,10 @@ export const goPayWrap = async (tradeNo) => {
 	if (isWeixin()) {
 		uni.hideLoading();
 		//微信内js支付
-		uni.redirectTo({
-			url: '/pages/payPage/payPage?tradeNo=' + tradeNo
-		});
+		// uni.redirectTo({
+		// 	url: '/pages/payPage/payPage?tradeNo=' + tradeNo
+		// });
+		window.location.href = 'https://unigree.bld365.com/#/pages/payPage/payPage?tradeNo=' + tradeNo
 	} else {
 		//微信外H5支付
 		let res2 = await goPayAjax(tradeNo);
