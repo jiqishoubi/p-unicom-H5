@@ -3,7 +3,7 @@
 		<view class="form">
 			<view class="item"><input class="input" placeholder="请输入手机号码" v-model="phone" /></view>
 			<view class="item">
-				<input class="input" placeholder="请输入验证码" v-model="sms" />
+				<input class="input" placeholder="请输入验证码" v-model="sms" maxlength="6" />
 				<getsmsbtn :limitSecond="60" :phoneNumber="phone" styleStr="color: #999;"></getsmsbtn>
 			</view>
 		</view>
