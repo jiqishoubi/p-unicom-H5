@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="tips">请填写预约信息</view>
+		<!-- <view class="tips">请填写预约信息</view> -->
 
 		<view class="goods_info">{{ productInfo.productName || '暂无商品信息' }}</view>
 
@@ -80,13 +80,13 @@
 					<text v-else>-</text>
 				</text>
 			</view>
-			<view class="butie_item">
+			<view v-if="!hideTips" class="butie_item">
 				<text>联通补贴</text>
 				<text class="count count2">-&yen;{{ '600.00' }}</text>
 			</view>
 		</view>
 
-		<view class="desc">
+		<view v-if="!hideTips" class="desc">
 			<view style="margin-bottom: 5rpx;">温馨提示：</view>
 			此商品享受联通直降600元的补贴优惠，下单后需办理联通99元的5G套餐合约，办理中需冻结您的花呗额度687元，请确保您已开通花呗，额度充足，以便联通官方人员上门为您办理，办理成功后无需您还款，联通每月按期为您还款，直至分期结束。
 		</view>
@@ -108,7 +108,7 @@ import { toMoney } from '@/utils/utils.js';
 import patternCreator from '@/utils/patternCreator.js';
 import { goPayAjax, goPayWrap } from '@/services/order.js';
 import { key_card_unicom_lookingTradeNo } from '@/utils/const.js';
-import { openUrl, isWeixin } from '@/utils/utils_h5.js';
+import { openUrl, isWeixin, getUrlParam } from '@/utils/utils_h5.js';
 export default {
 	components: {
 		uniIcons
@@ -147,7 +147,7 @@ export default {
 		totalMoney() {
 			let str = '-';
 			if (this.productInfo.productPrice) {
-				let num = this.productInfo.productPrice / 100 - 600;
+				let num = this.hideTips ? this.productInfo.productPrice / 100 : this.productInfo.productPrice / 100 - 600;
 				if (num <= 0) {
 					str = '0.01';
 				} else {
@@ -169,6 +169,11 @@ export default {
 	 * 周期
 	 */
 	onLoad(options) {
+		let hideTips = getUrlParam('hideTips');
+		if (hideTips && hideTips == '1') {
+			this.hideTips = '1';
+		}
+
 		if (options.phone) {
 			this.phone = options.phone;
 			this.productId = options.productId;

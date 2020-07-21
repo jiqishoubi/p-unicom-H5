@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { appid_bld, appSecret_bld, key_card_unicom_phone } from '@/utils/const.js';
+import { appid, appSecret, key_card_unicom_phone } from '@/utils/const.js';
 import { getUrlParam, initWexinH5JSPayConfig, initWeixinJSBridge } from '@/utils/utils_h5.js';
 import { getOpenId } from '@/services/login.js';
 export default {
@@ -25,7 +25,7 @@ export default {
 		let code = getUrlParam('code');
 		if (!code) {
 			window.location.href = `
-      https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid_bld}&redirect_uri=${encodeURIComponent(
+      https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
 				redirect_uri
 			)}&response_type=code&scope=snsapi_base&state=123#wechat_redirect
     `;
@@ -39,7 +39,7 @@ export default {
 			//一、code换openid
 			let postData = {
 				code: this.code,
-				secret: appSecret_bld
+				secret: appSecret
 			};
 			let openid = await getOpenId(postData); //oDAeAwVtTEsql5oSRIVRQC5UwO54
 			if (!openid) {

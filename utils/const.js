@@ -37,5 +37,9 @@ export const searchWrapHeight = 109
 export const tabbarHeight = 113
 export const isXBottom = 38 //iphonex安全距离
 
-export const appid_bld = 'wx6e34871a94507a96'
-export const appSecret_bld = '57a471343e78aebc1e14367300c64cdc'
+//便利电
+export const appid = 'wx6e34871a94507a96'
+export const appSecret = '57a471343e78aebc1e14367300c64cdc'
+// //数字生活
+// export const appid = 'wx24838353bbccfc54'
+// export const appSecret = 'ed8878188299ea9a6e51171ed0fca0ff'

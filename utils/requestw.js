@@ -5,6 +5,9 @@ import {
 	globalHost
 } from '@/utils/utils.js'
 import {
+	getUrlParam
+} from '@/utils/utils_h5.js'
+import {
 	key_card_myToken,
 	key_card_unicom_phone,
 	key_card_unicom_lookingTradeNo
@@ -52,16 +55,30 @@ const requestw = ({
 			// responseType	String	否	text	设置响应的数据类型。合法值：text、arraybuffer	5+App和支付宝小程序不支持
 			success: (res) => {
 				let result = res.data
-				console.log(result)
+				
 				if (result.systemMessage && result.systemMessage.indexOf('无效') > -1) {
 					uni.removeStorageSync(key_card_myToken)
 					uni.removeStorageSync(key_card_unicom_phone)
 					uni.removeStorageSync(key_card_unicom_lookingTradeNo)
 
-					// uni.reLaunch({
-					// 	url: '/pages/indexH5/indexH5.vue'
-					// })
-					window.location.href = 'https://unigree.bld365.com/#/pages/indexH5/indexH5'
+					let productId = getUrlParam('productId')
+					let hideTips = getUrlParam('hideTips')
+					let url = 'https://unigree.bld365.com/#/pages/login/login'
+					if (productId) {
+						if (url.indexOf('?') > -1) {
+							url = url + '&productId=' + productId
+						} else {
+							url = url + '?productId=' + productId
+						}
+					}
+					if (hideTips && hideTips == '1') {
+						if (url.indexOf('?') > -1) {
+							url = url + '&hideTips=1'
+						} else {
+							url = url + '?hideTips=1'
+						}
+					}
+					window.location.href = url
 					resolve()
 					return
 				}

@@ -8,23 +8,27 @@
 		}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/details/details",
 			"style": {
-				"navigationBarTitleText": "确认订单"
+				"navigationBarTitleText": "请填写订单信息",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "我的订单",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/result/result",
 			"style": {
-				"navigationBarTitleText": "支付"
+				"navigationBarTitleText": "支付",
+				"navigationStyle": "custom"
 			}
 		},
 		//微信内H5支付页面

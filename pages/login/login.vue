@@ -17,6 +17,7 @@ import requestw from '@/utils/requestw.js';
 import api_login from '@/services/allApiStr/login.js';
 import { key_card_myToken, key_card_unicom_phone } from '@/utils/const.js';
 import { redirectUrl } from '@/services/login.js';
+import { getUrlParam } from '@/utils/utils_h5.js';
 
 export default {
 	components: {
@@ -25,13 +26,17 @@ export default {
 	data() {
 		return {
 			productId: '',
+			hideTips: '',
 
 			phone: '',
 			sms: ''
 		};
 	},
 	async onLoad(options) {
-		// let res = await redirectUrl();
+		let hideTips = getUrlParam('hideTips');
+		if (hideTips && hideTips == '1') {
+			this.hideTips = '1';
+		}
 
 		if (options.productId) {
 			this.productId = options.productId;
@@ -47,13 +52,18 @@ export default {
 		goNext(phone) {
 			if (this.productId) {
 				//去下单
+				let url = '/pages/details/details?phone=' + phone + '&productId=' + this.productId;
+				if (this.hideTips) {
+					url = url + '&hideTips=1';
+				}
 				uni.redirectTo({
-					url: '/pages/details/details?phone=' + phone + '&productId=' + this.productId
+					url
 				});
 			} else {
 				//没有商品就是查看列表
+				let url = '/pages/order/order?phone=' + phone;
 				uni.redirectTo({
-					url: '/pages/order/order?phone=' + phone
+					url
 				});
 			}
 		},
