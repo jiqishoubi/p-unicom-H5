@@ -178,6 +178,19 @@ export default {
 			this.phone = options.phone;
 			this.productId = options.productId;
 		}
+
+		// //不是123就return
+		// let productId = getUrlParam('productId');
+		// if (productId !== '1' && productId !== '2' && productId !== '3') {
+		// 	uni.showToast({
+		// 		title: '商品已下架',
+		// 		icon: 'none',
+		// 		duration: 600000,
+		// 		mask: true
+		// 	});
+		// 	return;
+		// }
+
 		this.getProductInfo();
 	},
 	methods: {
